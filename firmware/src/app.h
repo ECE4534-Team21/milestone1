@@ -58,8 +58,6 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include <stdlib.h>
 #include "system_config.h"
 #include "system_definitions.h"
-#include "timers.h"
-#include "FreeRTOS.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -115,7 +113,6 @@ typedef struct
 {
     /* The application's current state */
     APP_STATES state;
-    TimerHandle_t timer50ms;
     /* TODO: Define any additional data used by the application. */
 } APP_DATA;
 
