@@ -58,6 +58,8 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include <stdlib.h>
 #include "system_config.h"
 #include "system_definitions.h"
+#include "timers.h"
+#include "FreeRTOS.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -88,6 +90,8 @@ typedef enum
 {
 	/* Application's state machine's initial state. */
 	APP_STATE_INIT=0,
+    APP_STATE_RUNNING=1,
+            
 
 	/* TODO: Define states used by the application state machine. */
 
@@ -111,10 +115,8 @@ typedef struct
 {
     /* The application's current state */
     APP_STATES state;
-
+    TimerHandle_t timer50ms;
     /* TODO: Define any additional data used by the application. */
-
-
 } APP_DATA;
 
 

@@ -110,11 +110,18 @@ APP_DATA appData;
   Remarks:
     See prototype in app.h.
  */
+void timerCallback(TimerHandle_t timer) {
+    //Put things we want called every 50ms in here.
+    PLIB_PORTS_PinToggle(PORTS_ID_0, PORT_CHANNEL_A, PORTS_BIT_POS_3); //for testing purposes. Flashes LED RA3
+}
 
 void APP_Initialize ( void )
 {
     /* Place the App state machine in its initial state. */
     appData.state = APP_STATE_INIT;
+    PLIB_PORTS_PinDirectionOutputSet(PORTS_ID_0, PORT_CHANNEL_A, PORTS_BIT_POS_3);
+    //Setup 50ms timer
+    appData.timer50ms = xTimerCreate("50ms Timer", 50 / portTICK_PERIOD_MS, pdTRUE, (void *) 1, timerCallback);
     
     /* TODO: Initialize your application's state machine and other
      * parameters.
@@ -138,6 +145,8 @@ void APP_Tasks ( void )
         /* Application's initial state. */
         case APP_STATE_INIT:
         {
+            appData.state = APP_STATE_RUNNING;
+            xTimerStart(appData.timer50ms, 100);
             break;
         }
 
