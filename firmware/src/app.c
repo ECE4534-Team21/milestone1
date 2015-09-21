@@ -147,6 +147,11 @@ void APP_Tasks ( void )
             xTimerStart(pubData.timer50ms, 100);
             break;
         }
+        
+        case APP_STATE_RUNNING:
+        {
+            break;
+        }
 
         /* TODO: implement your application state machine.*/
 
@@ -157,6 +162,11 @@ void APP_Tasks ( void )
             break;
         }
     }
+}
+
+void USART_Tasks(void){
+    //put a blocking statment here to block until there is a value in the message queue
+    //while(!messageInQueue()){};
 }
  
 
