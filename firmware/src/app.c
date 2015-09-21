@@ -78,7 +78,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 */
 
 APP_DATA appData;
-PUBLIC_DATA pubData;
+//PUBLIC_DATA pubData;
 
 // *****************************************************************************
 // *****************************************************************************
@@ -120,7 +120,10 @@ void APP_Initialize ( void )
     PLIB_PORTS_PinDirectionOutputSet(PORTS_ID_0, PORT_CHANNEL_A, PORTS_BIT_POS_3);
     //Setup 50ms timer
     pubData.timer50ms = xTimerCreate("50ms Timer", 50 / portTICK_PERIOD_MS, pdTRUE, (void *) 1, timerCallback);
-    
+    pubData.usartQueue = xQueueCreate(     /* The number of items the queue can hold. */
+                            mainQUEUE_LENGTH, //defined in app_public.h
+                            /* The size of each item the queue holds. */
+                            sizeof( char ) );
     /* TODO: Initialize your application's state machine and other
      * parameters.
      */
@@ -150,6 +153,14 @@ void APP_Tasks ( void )
         
         case APP_STATE_RUNNING:
         {
+            char receivedValue = NULL;
+            xQueueReceive( pubData.usartQueue, &receivedValue, portMAX_DELAY );
+            if(receivedValue != NULL){
+                DRV_USART0_WriteByte(receivedValue);
+            }
+    
+    //put a blocking statment here to block until there is a value in the message queue
+    //while(!messageInQueue()){};
             break;
         }
 
@@ -164,10 +175,9 @@ void APP_Tasks ( void )
     }
 }
 
-void USART_Tasks(void){
-    //put a blocking statment here to block until there is a value in the message queue
-    //while(!messageInQueue()){};
-}
+/*void USART_Tasks(void){
+   ;
+}*/
  
 
 /*******************************************************************************

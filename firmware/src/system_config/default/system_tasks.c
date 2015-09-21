@@ -94,9 +94,9 @@ void SYS_Tasks ( void )
                 "APP Tasks",
                 1024, NULL, 1, NULL);
     
-    xTaskCreate((TaskFunction_t) _USART_Tasks, 
+    /*xTaskCreate((TaskFunction_t) _USART_Tasks, 
                 "USART Tasks",
-                1024, NULL, 1, NULL);
+                1024, NULL, 1, NULL);*/
 
     /**************
      * Start RTOS * 
@@ -146,11 +146,11 @@ static void _APP_Tasks(void)
     }
 }
 
-static void _USART_Tasks(void){
+/*static void _USART_Tasks(void){
     while(1){
         USART_Tasks();
     }
-}
+}*/
 
 
 /*******************************************************************************

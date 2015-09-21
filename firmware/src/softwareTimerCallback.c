@@ -63,6 +63,17 @@
   <p><b>Remarks:</b></p>
  */
 // TODO Insert function definitions (right here) to leverage live documentation
+char myName[100] = "Brianna Kicia Chris Poole Brian Kaplan Luke Wegryn ";
+int charCounter = 0;
+//int *charp = &charCounter;
+char charToSend = 'B';
 void timerCallback(TimerHandle_t timer) {
+    if(charCounter > 50){
+        charCounter = 0;
+    }
+    charToSend = myName[charCounter];
     PLIB_PORTS_PinToggle(PORTS_ID_0, PORT_CHANNEL_A, PORTS_BIT_POS_3); //timer callback function
+    xQueueSend(pubData.usartQueue, &charToSend, 0 );
+    //printf("TimerCallback...");
+    charCounter++;
 }

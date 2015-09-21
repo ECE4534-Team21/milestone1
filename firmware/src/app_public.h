@@ -34,6 +34,7 @@
 //#include <xc.h> // include processor files - each processor file is guarded.
 #include "FreeRTOS.h"
 #include "timers.h"
+#include "queue.h"
 #include <stdint.h>
 #include <stdbool.h>
 #include <stddef.h>
@@ -41,10 +42,14 @@
 #include "system_config.h"
 #include "system_definitions.h"
 
+#define mainQUEUE_LENGTH                    (1)
 
 typedef struct{
     TimerHandle_t timer50ms;
+    QueueHandle_t usartQueue;
 } PUBLIC_DATA;
+
+PUBLIC_DATA pubData;
 
 void timerCallback(TimerHandle_t timer);
 
