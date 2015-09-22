@@ -55,6 +55,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 
 #include "app.h"
 #include "app_public.h"
+#include "debug.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -118,6 +119,8 @@ void APP_Initialize ( void )
     /* Place the App state machine in its initial state. */
     appData.state = APP_STATE_INIT;
     PLIB_PORTS_PinDirectionOutputSet(PORTS_ID_0, PORT_CHANNEL_A, PORTS_BIT_POS_3);
+    PLIB_PORTS_DirectionOutputSet (PORTS_ID_0, PORT_CHANNEL_E, 0xFF);
+    PLIB_PORTS_PinSet (PORTS_ID_0, PORT_CHANNEL_E, PORTS_BIT_POS_0);
     //Setup 50ms timer
     pubData.timer50ms = xTimerCreate("50ms Timer", 50 / portTICK_PERIOD_MS, pdTRUE, (void *) 1, timerCallback);
     pubData.usartQueue = xQueueCreate(     /* The number of items the queue can hold. */
@@ -155,9 +158,11 @@ void APP_Tasks ( void )
         case APP_STATE_RUNNING:
         {
             char receivedValue = NULL;
+            debug(USART_BLOCK_FOR_QUEUE);
             xQueueReceive( pubData.usartQueue, &receivedValue, portMAX_DELAY ); //blocks until there is a character in the queue
             if(receivedValue != NULL){
                 DRV_USART_WriteByte(pubData.usartHandle, receivedValue); //writes to UART, ChipKit Pin 1
+                debug(USART_SEND_MESSAGE);
             }
             break;
         }
@@ -171,6 +176,10 @@ void APP_Tasks ( void )
             break;
         }
     }
+}
+
+void debug(unsigned char msg) {
+    PLIB_PORTS_Write (PORTS_ID_0, PORT_CHANNEL_E, msg);
 }
 
 /*void USART_Tasks(void){
