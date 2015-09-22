@@ -7,6 +7,7 @@
             <file>file:/Applications/microchip/harmony/apps/milestone1/firmware/src/system_config/default/system_tasks.c</file>
             <file>file:/Applications/microchip/harmony/apps/milestone1/firmware/src/app_public.h</file>
             <file>file:/Applications/microchip/harmony/apps/milestone1/firmware/src/softwareTimerCallback.c</file>
+            <file>file:/Applications/microchip/harmony/framework/driver/usart/drv_usart.h</file>
             <file>file:/Applications/microchip/harmony/apps/milestone1/firmware/src/app.c</file>
         </group>
     </open-files>
