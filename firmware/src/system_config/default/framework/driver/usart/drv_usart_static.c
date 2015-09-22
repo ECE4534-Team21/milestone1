@@ -68,34 +68,10 @@ void DRV_USART0_Initialize(void)
     PLIB_USART_LineControlModeSelect(USART_ID_1, USART_8N1);
     PLIB_USART_TransmitterEnable(USART_ID_1);
     PLIB_USART_TransmitterInterruptModeSelect(USART_ID_1, USART_TRANSMIT_FIFO_NOT_FULL);
-    PLIB_USART_ReceiverEnable(USART_ID_1);
-    PLIB_USART_ReceiverInterruptModeSelect(USART_ID_1, USART_RECEIVE_FIFO_ONE_CHAR);
-    /* Initialize interrupts */
-    /* Note: TX interrupt must be enabled when data is ready to be transmitted */
-    /* The following code can be used to enable TX Interrupt */
-    /* PLIB_INT_SourceEnable(INT_ID_0, INT_SOURCE_USART_1_TRANSMIT); */
-    PLIB_INT_SourceEnable(INT_ID_0, INT_SOURCE_USART_1_RECEIVE);
-    PLIB_INT_SourceEnable(INT_ID_0, INT_SOURCE_USART_1_ERROR);
-    PLIB_INT_VectorPrioritySet(INT_ID_0, INT_VECTOR_UART1, INT_PRIORITY_LEVEL1);
-    PLIB_INT_VectorSubPrioritySet(INT_ID_0, INT_VECTOR_UART1, INT_SUBPRIORITY_LEVEL0);
 
     PLIB_USART_Enable(USART_ID_1);
 }
 
-bool DRV_USART0_ReceiverBufferIsEmpty(void)
-{
-   return (!PLIB_USART_ReceiverDataIsAvailable(USART_ID_1));
-}
-
-uint8_t DRV_USART0_ReadByte(void)
-{
-   if(PLIB_USART_ReceiverOverrunHasOccurred(USART_ID_1))
-   {
-      PLIB_USART_ReceiverOverrunErrorClear(USART_ID_1);
-   }
-
-   return (PLIB_USART_ReceiverByteReceive(USART_ID_1));
-}
 
 void DRV_USART0_WriteByte(const uint8_t byte)
 {

@@ -124,6 +124,7 @@ void APP_Initialize ( void )
                             mainQUEUE_LENGTH, //defined in app_public.h
                             /* The size of each item the queue holds. */
                             sizeof( char ) );
+    pubData.usartHandle = DRV_USART_Open(DRV_USART_INDEX_0, DRV_IO_INTENT_READWRITE);
     /* TODO: Initialize your application's state machine and other
      * parameters.
      */
@@ -154,13 +155,10 @@ void APP_Tasks ( void )
         case APP_STATE_RUNNING:
         {
             char receivedValue = NULL;
-            xQueueReceive( pubData.usartQueue, &receivedValue, portMAX_DELAY );
+            xQueueReceive( pubData.usartQueue, &receivedValue, portMAX_DELAY ); //blocks until there is a character in the queue
             if(receivedValue != NULL){
-                DRV_USART0_WriteByte(receivedValue);
+                DRV_USART_WriteByte(pubData.usartHandle, receivedValue); //writes to UART, ChipKit Pin 1
             }
-    
-    //put a blocking statment here to block until there is a value in the message queue
-    //while(!messageInQueue()){};
             break;
         }
 

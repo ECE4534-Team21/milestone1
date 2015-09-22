@@ -51,8 +51,16 @@
         <Path>Source Files/FreeRTOS</Path>
       </File>
       <File>
+        <Name>drv_usart.c</Name>
+        <Path>Source Files/framework/driver/usart/src/dynamic</Path>
+      </File>
+      <File>
         <Name>event_groups.c</Name>
         <Path>Source Files/FreeRTOS</Path>
+      </File>
+      <File>
+        <Name>drv_usart.h</Name>
+        <Path>Header Files/framework/driver/usart</Path>
       </File>
       <File>
         <Name>queue.h</Name>
@@ -69,6 +77,10 @@
       <File>
         <Name>osal_freertos.c</Name>
         <Path>Source Files/framework/osal/src</Path>
+      </File>
+      <File>
+        <Name>drv_usart_byte_model.c</Name>
+        <Path>Source Files/framework/driver/usart/src/dynamic</Path>
       </File>
       <File>
         <Name>sys_ports.h</Name>
@@ -109,6 +121,10 @@
       <File>
         <Name>system.h</Name>
         <Path>Header Files/framework/system</Path>
+      </File>
+      <File>
+        <Name>driver.h</Name>
+        <Path>Header Files/framework/driver</Path>
       </File>
       <File>
         <Name>croutine.c</Name>
@@ -156,7 +172,7 @@
       <Template>
         <Name>system_config.h</Name>
         <Path>Header Files/app/system_config/default</Path>
-        <Checksum>5D2B753E93BBE39B26ECBB98C6F708D5</Checksum>
+        <Checksum>F67FCFE152CEE02F7E5591F042EBEB70</Checksum>
       </Template>
       <Template>
         <Name>rtos_hooks.c</Name>
@@ -164,14 +180,9 @@
         <Checksum>FA52743264536E5207D2ADBE57B48D05</Checksum>
       </Template>
       <Template>
-        <Name>drv_usart_static.h</Name>
-        <Path>Header Files/app/system_config/default/framework/driver/usart</Path>
-        <Checksum>66C127084540B78CD4F78E2FBCC6D29F</Checksum>
-      </Template>
-      <Template>
         <Name>system_interrupt.c</Name>
         <Path>Source Files/app/system_config/default</Path>
-        <Checksum>A04BD60BBAF7CCA6265F0618F14DF797</Checksum>
+        <Checksum>9AC33B2960C8DF72C5EB0E3662303FF4</Checksum>
       </Template>
       <Template>
         <Name>sys_ports_static.c</Name>
@@ -190,7 +201,7 @@
       <Template>
         <Name>system_tasks.c</Name>
         <Path>Source Files/app/system_config/default</Path>
-        <Checksum>35EAD6992DCEEAFAE66093DA47554541</Checksum>
+        <Checksum>0130FF46ED66111AD94CAC1D1AC42739</Checksum>
       </Template>
       <Template>
         <Name>FreeRTOSConfig.h</Name>
@@ -204,17 +215,12 @@
       <Template>
         <Name>system_init.c</Name>
         <Path>Source Files/app/system_config/default</Path>
-        <Checksum>FE2507797967730D7BA245B87BC4E95D</Checksum>
+        <Checksum>746E0E27204EF5C756697623C15CBD6D</Checksum>
       </Template>
       <Template>
         <Name>system_interrupt_a.S</Name>
         <Path>Source Files/app/system_config/default</Path>
-        <Checksum>5C0D911C19B5E425D7F0FB89E579F457</Checksum>
-      </Template>
-      <Template>
-        <Name>drv_usart_static.c</Name>
-        <Path>Source Files/app/system_config/default/framework/driver/usart</Path>
-        <Checksum>A7A805179AEFD3DA995BB89EFE039586</Checksum>
+        <Checksum>F8E29721D7D91213A568F3DC060408EC</Checksum>
       </Template>
       <Template>
         <Name>sys_clk_static.c</Name>
@@ -224,7 +230,7 @@
       <Template>
         <Name>system_definitions.h</Name>
         <Path>Header Files/app/system_config/default</Path>
-        <Checksum>903A3A136796FE56886B36AECFA35002</Checksum>
+        <Checksum>C22F26D452F855EEB15A0144251F6C53</Checksum>
       </Template>
     </Templates>
     <CompilerItems>

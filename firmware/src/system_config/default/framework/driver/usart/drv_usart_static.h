@@ -57,8 +57,6 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 // *****************************************************************************
 
 void DRV_USART0_Initialize(void);
-uint8_t DRV_USART0_ReadByte(void);
-bool DRV_USART0_ReceiverBufferIsEmpty(void);
 void DRV_USART0_WriteByte(const uint8_t byte);
 
 #endif // #ifndef _DRV_USART_STATIC_H

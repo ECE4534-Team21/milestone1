@@ -65,7 +65,6 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
  
 static void _SYS_Tasks ( void );
 static void _APP_Tasks(void);
-static void _USART_Tasks(void);
 
 
 // *****************************************************************************
@@ -94,10 +93,6 @@ void SYS_Tasks ( void )
                 "APP Tasks",
                 1024, NULL, 1, NULL);
     
-    /*xTaskCreate((TaskFunction_t) _USART_Tasks, 
-                "USART Tasks",
-                1024, NULL, 1, NULL);*/
-
     /**************
      * Start RTOS * 
      **************/
@@ -145,12 +140,6 @@ static void _APP_Tasks(void)
         //vTaskDelay(1000 / portTICK_PERIOD_MS);
     }
 }
-
-/*static void _USART_Tasks(void){
-    while(1){
-        USART_Tasks();
-    }
-}*/
 
 
 /*******************************************************************************

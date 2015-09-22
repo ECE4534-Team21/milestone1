@@ -47,6 +47,7 @@
 typedef struct{
     TimerHandle_t timer50ms;
     QueueHandle_t usartQueue;
+    DRV_HANDLE usartHandle;
 } PUBLIC_DATA;
 
 PUBLIC_DATA pubData;
