@@ -215,7 +215,7 @@
       <Template>
         <Name>system_init.c</Name>
         <Path>Source Files/app/system_config/default</Path>
-        <Checksum>746E0E27204EF5C756697623C15CBD6D</Checksum>
+        <Checksum>3B10857C7EDD538570075FE71F7E221E</Checksum>
       </Template>
       <Template>
         <Name>system_interrupt_a.S</Name>

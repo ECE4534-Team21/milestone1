@@ -160,6 +160,7 @@ void APP_Tasks ( void )
             char receivedValue = NULL;
             debug(USART_BLOCK_FOR_QUEUE);
             xQueueReceive( pubData.usartQueue, &receivedValue, portMAX_DELAY ); //blocks until there is a character in the queue
+            //dequeue(pubData.usartQueue, &receivedValue, portMAX_DELAY);
             if(receivedValue != NULL){
                 DRV_USART_WriteByte(pubData.usartHandle, receivedValue); //writes to UART, ChipKit Pin 1
                 debug(USART_SEND_MESSAGE);

@@ -9,6 +9,7 @@
             <file>file:/Applications/microchip/harmony/apps/milestone1/firmware/src/softwareTimerCallback.c</file>
             <file>file:/Applications/microchip/harmony/framework/driver/usart/drv_usart.h</file>
             <file>file:/Applications/microchip/harmony/apps/milestone1/firmware/src/app.c</file>
+            <file>file:/Applications/microchip/harmony/apps/milestone1/firmware/src/main.c</file>
         </group>
     </open-files>
 </project-private>

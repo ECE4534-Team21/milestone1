@@ -55,6 +55,15 @@ PUBLIC_DATA pubData;
 void timerCallback(TimerHandle_t timer);
 
 
+/*void enqueue(QueueHandle_t queueName, const void* value, TickType_t tickDelay){
+    xQueueSend(queueName, value, tickDelay );
+}
+
+void dequeue(QueueHandle_t queueName , void* value, TickType_t tickDelay){
+    xQueueReceive( queueName, value, tickDelay);
+}*/
+
+
 // TODO Insert appropriate #include <>
 
 // TODO Insert C++ class definitions if appropriate

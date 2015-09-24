@@ -74,6 +74,7 @@ void timerCallback(TimerHandle_t timer) {
     charToSend = myName[charCounter];
     PLIB_PORTS_PinToggle(PORTS_ID_0, PORT_CHANNEL_A, PORTS_BIT_POS_3); //timer callback function
     xQueueSend(pubData.usartQueue, &charToSend, 0 );
+    //enqueue(pubData.usartQueue, &charToSend, 0);
     //printf("TimerCallback...");
     charCounter++;
 }
