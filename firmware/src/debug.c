@@ -1,4 +1,6 @@
 
+#include "debug.h"
+
 //Initialize the debugger
 void initDebug() {
     //Set Port E to output

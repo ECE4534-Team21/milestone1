@@ -5,7 +5,7 @@
     Microchip Technology Inc.
 
   File Name:
-    app.h
+    uart.h
 
   Summary:
     This header file provides prototypes and definitions for the application.
@@ -43,21 +43,25 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
  *******************************************************************************/
 //DOM-IGNORE-END
 
-#ifndef _APP_H
-#define _APP_H
+#ifndef _UART_H
+#define _UART_H
 
+#define mainQUEUE_LENGTH                    (10)
 // *****************************************************************************
 // *****************************************************************************
 // Section: Included Files
 // *****************************************************************************
 // *****************************************************************************
-
+#include "FreeRTOS.h"
+#include "timers.h"
+#include "queue.h"
 #include <stdint.h>
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdlib.h>
 #include "system_config.h"
 #include "system_definitions.h"
+#include "debug.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -87,35 +91,25 @@ extern "C" {
 typedef enum
 {
 	/* Application's state machine's initial state. */
-	APP_STATE_INIT=0,
-    APP_STATE_RUNNING=1,
-            
+	UART_STATE_INIT=0,
+    UART_STATE_TX=1,
+    UART_STATE_RX=2,
 
 	/* TODO: Define states used by the application state machine. */
 
-} APP_STATES;
+} UART_STATES;
 
+typedef struct{
+    TimerHandle_t timer50ms;
+    QueueHandle_t usartQueue;
+    DRV_HANDLE usartHandle;
+    UART_STATES state;
+} UART_DATA;
 
-// *****************************************************************************
-/* Application Data
-
-  Summary:
-    Holds application data
-
-  Description:
-    This structure holds the application's data.
-
-  Remarks:
-    Application strings and buffers are be defined outside this structure.
- */
-
-typedef struct
-{
-    /* The application's current state */
-    APP_STATES state;
-    /* TODO: Define any additional data used by the application. */
-} APP_DATA;
-
+UART_DATA uartData;
+void timerCallback(TimerHandle_t timer);
+void debug(unsigned char msg);
+void initDebug();
 
 // *****************************************************************************
 // *****************************************************************************
@@ -134,7 +128,7 @@ typedef struct
 
 /*******************************************************************************
   Function:
-    void APP_Initialize ( void )
+    void UART_Initialize ( void )
 
   Summary:
      MPLAB Harmony application initialization routine.
@@ -156,19 +150,19 @@ typedef struct
 
   Example:
     <code>
-    APP_Initialize();
+    UART_Initialize();
     </code>
 
   Remarks:
     This routine must be called from the SYS_Initialize function.
 */
 
-void APP_Initialize ( void );
+void UART_Initialize ( void );
 
 
 /*******************************************************************************
   Function:
-    void APP_Tasks ( void )
+    void UART_Tasks ( void )
 
   Summary:
     MPLAB Harmony Demo application tasks function
@@ -189,17 +183,17 @@ void APP_Initialize ( void );
 
   Example:
     <code>
-    APP_Tasks();
+    UART_Tasks();
     </code>
 
   Remarks:
     This routine must be called from SYS_Tasks() routine.
  */
 
-void APP_Tasks( void );
+void UART_Tasks( void );
 
 
-#endif /* _APP_H */
+#endif /* _UART_H */
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

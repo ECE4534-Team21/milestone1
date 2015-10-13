@@ -5,7 +5,7 @@
     Microchip Technology Inc.
   
   File Name:
-    app.c
+    sensor.c
 
   Summary:
     This file contains the source code for the MPLAB Harmony application.
@@ -53,10 +53,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 // *****************************************************************************
 // *****************************************************************************
 
-#include "app.h"
-#include "app_public.h"
-#include "debug.h"
-#include "debug.c"
+#include "sensor.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -79,8 +76,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
     Application strings and buffers are be defined outside this structure.
 */
 
-APP_DATA appData;
-//PUBLIC_DATA pubData;
+SENSOR_DATA sensorData;
 
 // *****************************************************************************
 // *****************************************************************************
@@ -109,25 +105,17 @@ APP_DATA appData;
 
 /*******************************************************************************
   Function:
-    void APP_Initialize ( void )
+    void SENSOR_Initialize ( void )
 
   Remarks:
-    See prototype in app.h.
+    See prototype in sensor.h.
  */
 
-void APP_Initialize ( void )
+void SENSOR_Initialize ( void )
 {
     /* Place the App state machine in its initial state. */
-    appData.state = APP_STATE_INIT;
-    PLIB_PORTS_PinDirectionOutputSet(PORTS_ID_0, PORT_CHANNEL_A, PORTS_BIT_POS_3);
-    initDebug();
-    //Setup 50ms timer
-    pubData.timer50ms = xTimerCreate("50ms Timer", 50 / portTICK_PERIOD_MS, pdTRUE, (void *) 1, timerCallback);
-    pubData.usartQueue = xQueueCreate(     /* The number of items the queue can hold. */
-                            mainQUEUE_LENGTH, //defined in app_public.h
-                            /* The size of each item the queue holds. */
-                            sizeof( char ) );
-    pubData.usartHandle = DRV_USART_Open(DRV_USART_INDEX_0, DRV_IO_INTENT_READWRITE);
+    sensorData.state = SENSOR_STATE_INIT;
+    
     /* TODO: Initialize your application's state machine and other
      * parameters.
      */
@@ -136,35 +124,20 @@ void APP_Initialize ( void )
 
 /******************************************************************************
   Function:
-    void APP_Tasks ( void )
+    void SENSOR_Tasks ( void )
 
   Remarks:
-    See prototype in app.h.
+    See prototype in sensor.h.
  */
 
-void APP_Tasks ( void )
+void SENSOR_Tasks ( void )
 {
     /* Check the application's current state. */
-    switch ( appData.state )
+    switch ( sensorData.state )
     {
         /* Application's initial state. */
-        case APP_STATE_INIT:
+        case SENSOR_STATE_INIT:
         {
-            appData.state = APP_STATE_RUNNING;
-            xTimerStart(pubData.timer50ms, 100);
-            break;
-        }
-        
-        case APP_STATE_RUNNING:
-        {
-            char receivedValue = NULL;
-            debug(USART_BLOCK_FOR_QUEUE);
-            xQueueReceive( pubData.usartQueue, &receivedValue, portMAX_DELAY ); //blocks until there is a character in the queue
-            //dequeue(pubData.usartQueue, &receivedValue, portMAX_DELAY);
-            if(receivedValue != NULL){
-                DRV_USART_WriteByte(pubData.usartHandle, receivedValue); //writes to UART, ChipKit Pin 1
-                debug(USART_SEND_MESSAGE);
-            }
             break;
         }
 
@@ -178,10 +151,6 @@ void APP_Tasks ( void )
         }
     }
 }
-
-/*void USART_Tasks(void){
-   ;
-}*/
  
 
 /*******************************************************************************

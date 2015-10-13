@@ -62,7 +62,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 
 #include <xc.h>
 #include <sys/attribs.h>
-#include "app.h"
+#include "uart.h"
 #include "system_definitions.h"
 
 // *****************************************************************************
@@ -70,6 +70,53 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 // Section: System Interrupt Vector Functions
 // *****************************************************************************
 // *****************************************************************************
+void IntHandlerDrvAdc(void)
+{
+    /* Clear ADC Interrupt Flag */
+    PLIB_INT_SourceFlagClear(INT_ID_0, INT_SOURCE_ADC_1);
+    unsigned int photoResistorValue = 0;
+    int i = 0;
+    for(i=0;i<2;i++)
+        photoResistorValue += PLIB_ADC_ResultGetByIndex(ADC_ID_1, i);
+    photoResistorValue = photoResistorValue/2;
+    char charToSend;
+    //xQueueSend(uartData.usartQueue, &photoResistorValue, 0 );
+    //Nop();
+    if(photoResistorValue > 500){
+        charToSend = '1';
+        PLIB_PORTS_PinSet(PORTS_ID_0, PORT_CHANNEL_A, PORTS_BIT_POS_3);
+        //xQueueSend(uartData.usartQueue, '1', 0 );
+    }
+    else{
+        charToSend = '0';
+        PLIB_PORTS_PinClear(PORTS_ID_0, PORT_CHANNEL_A, PORTS_BIT_POS_3);
+        //xQueueSend(uartData.usartQueue, '0', 0 );
+    }
+    xQueueSend(uartData.usartQueue, &charToSend, 0 );
+    //Nop();
+}
+
+
+
+
+void IntHandlerDrvUsartInstance0(void)
+{
+    DRV_USART_TasksTransmit(sysObj.drvUsart0);
+    DRV_USART_TasksReceive(sysObj.drvUsart0);
+    DRV_USART_TasksError(sysObj.drvUsart0);
+
+}
+ 
+ 
+ 
+
+ 
+ 
+
+ 
+
+ 
+ 
   
 /*******************************************************************************
  End of File

@@ -15,6 +15,8 @@ extern "C" {
 #define USART_BLOCK_FOR_QUEUE ((unsigned char) 0x20) 
 #define USART_SEND_MESSAGE ((unsigned char)0x02)   
 
+#include "system_config.h"
+#include "system_definitions.h"
 
 #ifdef	__cplusplus
 }

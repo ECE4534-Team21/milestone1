@@ -81,8 +81,8 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 // *****************************************************************************
 /* Clock System Service Configuration Options
 */
-#define SYS_CLK_FREQ                        4000000ul
-#define SYS_CLK_BUS_PERIPHERAL_1            500000ul
+#define SYS_CLK_FREQ                        80000000ul
+#define SYS_CLK_BUS_PERIPHERAL_1            80000000ul
 #define SYS_CLK_UPLL_BEFORE_DIV2_FREQ       7999992ul
 #define SYS_CLK_CONFIG_PRIMARY_XTAL         8000000ul
 #define SYS_CLK_CONFIG_SECONDARY_XTAL       0ul
@@ -106,7 +106,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 /* USART Driver Configuration Options
 */
 
-#define DRV_USART_INTERRUPT_MODE                    false
+#define DRV_USART_INTERRUPT_MODE                    true
 #define DRV_USART_BYTE_MODEL_SUPPORT                true
 #define DRV_USART_BUFFER_QUEUE_SUPPORT              false
 #define DRV_USART_CLIENTS_NUMBER                    1
@@ -121,13 +121,16 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #define DRV_USART_INIT_FLAG_AUTO_BAUD_IDX0          false
 #define DRV_USART_INIT_FLAG_STOP_IN_IDLE_IDX0       false
 #define DRV_USART_INIT_FLAGS_IDX0                   0
-#define DRV_USART_BRG_CLOCK_IDX0                    500000
-#define DRV_USART_BAUD_RATE_IDX0                    10000
+#define DRV_USART_BRG_CLOCK_IDX0                    80000000
+#define DRV_USART_BAUD_RATE_IDX0                    57600
 #define DRV_USART_LINE_CNTRL_IDX0                   DRV_USART_LINE_CONTROL_8NONE1
 #define DRV_USART_HANDSHAKE_MODE_IDX0               DRV_USART_HANDSHAKE_NONE
 #define DRV_USART_XMIT_INT_SRC_IDX0                 INT_SOURCE_USART_1_TRANSMIT
 #define DRV_USART_RCV_INT_SRC_IDX0                  INT_SOURCE_USART_1_RECEIVE
 #define DRV_USART_ERR_INT_SRC_IDX0                  INT_SOURCE_USART_1_ERROR
+#define DRV_USART_INT_VECTOR_IDX0                   INT_VECTOR_UART1
+#define DRV_USART_INT_PRIORITY_IDX0                 INT_PRIORITY_LEVEL1
+#define DRV_USART_INT_SUB_PRIORITY_IDX0             INT_SUBPRIORITY_LEVEL0
 
 
 #define DRV_USART_POWER_STATE_IDX0                  SYS_MODULE_POWER_RUN_FULL
