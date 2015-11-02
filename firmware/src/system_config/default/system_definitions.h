@@ -58,6 +58,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "system/int/sys_int.h"
 #include "driver/usart/drv_usart.h"
 #include "system/ports/sys_ports.h"
+#include "driver/spi/drv_spi.h"
 
 
 #include "FreeRTOS.h"
@@ -98,6 +99,9 @@ typedef struct
 {
     SYS_MODULE_OBJ  sysDevcon;
     SYS_MODULE_OBJ  drvUsart0;
+
+    /*** SPI Object for Index 0 ***/
+    SYS_MODULE_OBJ				spiObjectIdx0;
 
 } SYSTEM_OBJECTS;
 

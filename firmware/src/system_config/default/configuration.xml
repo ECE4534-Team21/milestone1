@@ -39,6 +39,14 @@
         <Path>Source Files/framework/system/ports/src</Path>
       </File>
       <File>
+        <Name>drv_spi_internal.h</Name>
+        <Path>Header Files/framework/driver/spi/private/dynamic</Path>
+      </File>
+      <File>
+        <Name>drv_spi.c</Name>
+        <Path>Source Files/framework/driver/spi/dynamic</Path>
+      </File>
+      <File>
         <Name>ISR_Support.h</Name>
         <Path>Header Files/FreeRTOS/portable/MPLAB/PIC32MX</Path>
       </File>
@@ -107,6 +115,10 @@
         <Path>Header Files/FreeRTOS</Path>
       </File>
       <File>
+        <Name>drv_spi_sys_queue.h</Name>
+        <Path>Header Files/framework/driver/spi/private</Path>
+      </File>
+      <File>
         <Name>portmacro.h</Name>
         <Path>Header Files/FreeRTOS/portable/MPLAB/PIC32MX</Path>
       </File>
@@ -123,12 +135,28 @@
         <Path>Header Files/framework/system</Path>
       </File>
       <File>
+        <Name>drv_spi_api.c</Name>
+        <Path>Source Files/framework/driver/spi/dynamic</Path>
+      </File>
+      <File>
+        <Name>drv_spi_sys_queue_fifo.c</Name>
+        <Path>Source Files/framework/driver/spi</Path>
+      </File>
+      <File>
         <Name>driver.h</Name>
         <Path>Header Files/framework/driver</Path>
       </File>
       <File>
         <Name>croutine.c</Name>
         <Path>Source Files/FreeRTOS</Path>
+      </File>
+      <File>
+        <Name>drv_spi_sys_queue_local_fifo.h</Name>
+        <Path>Header Files/framework/driver/spi/private</Path>
+      </File>
+      <File>
+        <Name>drv_spi.h</Name>
+        <Path>Header Files/framework/driver/spi</Path>
       </File>
       <File>
         <Name>event_groups.h</Name>
@@ -172,7 +200,7 @@
       <Template>
         <Name>system_config.h</Name>
         <Path>Header Files/app/system_config/default</Path>
-        <Checksum>9AF0DB0E6937A6AFD669D5C4C1A8A19A</Checksum>
+        <Checksum>E7B429514F6954E5B9FA29E99E6CF308</Checksum>
       </Template>
       <Template>
         <Name>rtos_hooks.c</Name>
@@ -182,7 +210,7 @@
       <Template>
         <Name>system_interrupt.c</Name>
         <Path>Source Files/app/system_config/default</Path>
-        <Checksum>9AC33B2960C8DF72C5EB0E3662303FF4</Checksum>
+        <Checksum>B50BF6E1DB9F9EAF2797CFC90570BFE5</Checksum>
       </Template>
       <Template>
         <Name>sys_ports_static.c</Name>
@@ -204,6 +232,11 @@
         <Checksum>0130FF46ED66111AD94CAC1D1AC42739</Checksum>
       </Template>
       <Template>
+        <Name>drv_spi_tasks.c</Name>
+        <Path>Source Files/app/system_config/default/framework/driver/spi/dynamic</Path>
+        <Checksum>B06292A15AC7B61E31216FD7978A7D77</Checksum>
+      </Template>
+      <Template>
         <Name>FreeRTOSConfig.h</Name>
         <Path>Header Files/app/system_config/default</Path>
         <Checksum>220C33A31B3A50506E86D43BB26438CB</Checksum>
@@ -215,12 +248,12 @@
       <Template>
         <Name>system_init.c</Name>
         <Path>Source Files/app/system_config/default</Path>
-        <Checksum>3B10857C7EDD538570075FE71F7E221E</Checksum>
+        <Checksum>68C95721F481C7C43960AC5A2DE7A0EF</Checksum>
       </Template>
       <Template>
         <Name>system_interrupt_a.S</Name>
         <Path>Source Files/app/system_config/default</Path>
-        <Checksum>F8E29721D7D91213A568F3DC060408EC</Checksum>
+        <Checksum>E30FCABE847C1E1D58372EB1D4255668</Checksum>
       </Template>
       <Template>
         <Name>sys_clk_static.c</Name>
@@ -228,9 +261,14 @@
         <Checksum>A6E9E4C7092911C2F2016868A6A0527E</Checksum>
       </Template>
       <Template>
+        <Name>drv_spi_master_ebm_tasks.c</Name>
+        <Path>Source Files/app/system_config/default/framework/driver/spi/dynamic</Path>
+        <Checksum>4C2C868738FD74E2D6A3C8A8FD6B1381</Checksum>
+      </Template>
+      <Template>
         <Name>system_definitions.h</Name>
         <Path>Header Files/app/system_config/default</Path>
-        <Checksum>C22F26D452F855EEB15A0144251F6C53</Checksum>
+        <Checksum>B5C4B069C31D53E0DC81C4CA806FAAAB</Checksum>
       </Template>
     </Templates>
     <CompilerItems>

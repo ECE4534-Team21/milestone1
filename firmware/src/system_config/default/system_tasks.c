@@ -92,7 +92,7 @@ void SYS_Tasks ( void )
     xTaskCreate((TaskFunction_t) _APP_Tasks,
                 "APP Tasks",
                 1024, NULL, 1, NULL);
-    
+
     /**************
      * Start RTOS * 
      **************/
@@ -140,7 +140,7 @@ static void _APP_Tasks(void)
     while(1)
     {
         APP_Tasks();
-        //vTaskDelay(1000 / portTICK_PERIOD_MS);
+        vTaskDelay(1000 / portTICK_PERIOD_MS);
     }
 }
 
