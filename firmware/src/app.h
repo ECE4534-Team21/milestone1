@@ -46,6 +46,12 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #ifndef _APP_H
 #define _APP_H
 
+#define _SUPPRESS_PLIB_WARNING 1
+
+//#define APP_SPI_CS_SELECT() \ SYS_PORTS_PinClear(PORTS_ID_0,SPI_CS_PORT_ID,SPI_CS_PORT_PIN)
+  
+//#define APP_SPI_CS_DESELECT() \ SYS_PORTS_PinSet(PORTS_ID_0,SPI_CS_PORT_ID,SPI_CS_PORT_PIN)
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Included Files
@@ -58,6 +64,8 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include <stdlib.h>
 #include "system_config.h"
 #include "system_definitions.h"
+#include "timers.h"
+#include "FreeRTOS.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -66,7 +74,7 @@ extern "C" {
 
 #endif
 // DOM-IGNORE-END 
-
+   
 // *****************************************************************************
 // *****************************************************************************
 // Section: Type Definitions
@@ -88,8 +96,7 @@ typedef enum
 {
 	/* Application's state machine's initial state. */
 	APP_STATE_INIT=0,
-    APP_STATE_RUNNING=1,
-            
+    APP_STATE_RUNNING=1          
 
 	/* TODO: Define states used by the application state machine. */
 
@@ -113,6 +120,7 @@ typedef struct
 {
     /* The application's current state */
     APP_STATES state;
+    TimerHandle_t timer50ms;
     /* TODO: Define any additional data used by the application. */
 } APP_DATA;
 
@@ -195,7 +203,7 @@ void APP_Initialize ( void );
   Remarks:
     This routine must be called from SYS_Tasks() routine.
  */
-
+//stuff
 void APP_Tasks( void );
 
 
