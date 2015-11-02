@@ -54,9 +54,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 // *****************************************************************************
 
 #include "app.h"
-#include "app_public.h"
-#include "debug.h"
-#include "debug.c"
+#include "PmodOLED.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -80,7 +78,6 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 */
 
 APP_DATA appData;
-//PUBLIC_DATA pubData;
 
 // *****************************************************************************
 // *****************************************************************************
@@ -114,23 +111,19 @@ APP_DATA appData;
   Remarks:
     See prototype in app.h.
  */
+/*void timerCallback(TimerHandle_t timer) {
+    //Put things we want called every 50ms in here.
+    PLIB_PORTS_PinToggle(PORTS_ID_0, PORT_CHANNEL_A, PORTS_BIT_POS_3); //for testing purposes. Flashes LED RA3
+}*/
 
 void APP_Initialize ( void )
 {
-    /* Place the App state machine in its initial state. */
     appData.state = APP_STATE_INIT;
-    PLIB_PORTS_PinDirectionOutputSet(PORTS_ID_0, PORT_CHANNEL_A, PORTS_BIT_POS_3);
-    initDebug();
-    //Setup 50ms timer
-    pubData.timer50ms = xTimerCreate("50ms Timer", 50 / portTICK_PERIOD_MS, pdTRUE, (void *) 1, timerCallback);
-    pubData.usartQueue = xQueueCreate(     /* The number of items the queue can hold. */
-                            mainQUEUE_LENGTH, //defined in app_public.h
-                            /* The size of each item the queue holds. */
-                            sizeof( char ) );
-    pubData.usartHandle = DRV_USART_Open(DRV_USART_INDEX_0, DRV_IO_INTENT_READWRITE);
-    /* TODO: Initialize your application's state machine and other
-     * parameters.
-     */
+    
+    DelayInit();
+    OledInit();
+    //PLIB_PORTS_PinDirectionOutputSet(PORTS_ID_0, PORT_CHANNEL_A, PORTS_BIT_POS_3);
+    //PLIB_PORTS_PinSet (PORTS_ID_0, PORT_CHANNEL_A, PORTS_BIT_POS_2);
 }
 
 
@@ -150,38 +143,27 @@ void APP_Tasks ( void )
         /* Application's initial state. */
         case APP_STATE_INIT:
         {
+            DelayInit();
+            OledInit();
             appData.state = APP_STATE_RUNNING;
-            xTimerStart(pubData.timer50ms, 100);
-            break;
+            
         }
-        
-        case APP_STATE_RUNNING:
+        case APP_STATE_RUNNING: 
         {
-            char receivedValue = NULL;
-            debug(USART_BLOCK_FOR_QUEUE);
-            xQueueReceive( pubData.usartQueue, &receivedValue, portMAX_DELAY ); //blocks until there is a character in the queue
-            //dequeue(pubData.usartQueue, &receivedValue, portMAX_DELAY);
-            if(receivedValue != NULL){
-                DRV_USART_WriteByte(pubData.usartHandle, receivedValue); //writes to UART, ChipKit Pin 1
-                debug(USART_SEND_MESSAGE);
-            }
-            break;
+            OledClearBuffer();
+            OledSetCursor(0, 0);
+            OledPutString("ECE 4534");
+            OledSetCursor(0, 2);
+            OledPutString("Team 21 -GARY");
+            OledUpdate();
+            
+            PLIB_PORTS_PinDirectionOutputSet(PORTS_ID_0, PORT_CHANNEL_B, PORTS_BIT_POS_3);
+            PLIB_PORTS_PinSet (PORTS_ID_0, PORT_CHANNEL_B, PORTS_BIT_POS_3);
+            //here is stuff
         }
-
-        /* TODO: implement your application state machine.*/
-
-        /* The default state should never be executed. */
-        default:
-        {
-            /* TODO: Handle error in application's state machine. */
-            break;
-        }
+            
     }
 }
-
-/*void USART_Tasks(void){
-   ;
-}*/
  
 
 /*******************************************************************************
